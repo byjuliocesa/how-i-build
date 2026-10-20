@@ -96,7 +96,7 @@ A site built from this template lives in its **own repository**, with this one
 added as a remote:
 
 ```bash
-git remote add template git@github.com:Julio0Cesar/how-i-build.git
+git remote add template git@github.com:byjuliocesa/how-i-build.git
 git fetch template
 git merge template/main
 ```
