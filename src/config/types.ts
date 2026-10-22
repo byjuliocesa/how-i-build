@@ -20,6 +20,13 @@ export interface SiteConfig {
     linkedin: string;
   };
   /**
+   * Optional URL of a public profile JSON (`profile.role`, `profile.email`,
+   * `profile.links`), read once when the site is built. Whatever it carries
+   * replaces the matching values in `content/profile.ts` and `socials`; when
+   * it is absent or does not answer, those values are what ships.
+   */
+  profileUrl?: string;
+  /**
    * Optional icon paths, served from `public/`. Absent means the label renders
    * as text — which is what the template ships, so a fork inherits no
    * third-party trademarks it did not ask for.

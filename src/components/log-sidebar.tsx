@@ -4,6 +4,7 @@ import { profile } from "@/content/profile";
 import { localeHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { series } from "@/lib/log";
+import { profileRole } from "@/lib/remote-profile";
 import { allTags } from "@/lib/tags";
 import { ProjectMark } from "./project-mark";
 
@@ -21,7 +22,7 @@ export function LogLayout({ sidebar, children }: { sidebar: ReactNode; children:
  * Who keeps the log, what it is a log of, and the ways into it. `intro` is the
  * home page only; elsewhere the cover stays short so the list starts higher.
  */
-export function LogSidebar({
+export async function LogSidebar({
   locale,
   dict,
   intro = false,
@@ -33,6 +34,7 @@ export function LogSidebar({
   heading?: string;
 }) {
   const Intro = profile.intro[locale];
+  const role = intro ? await profileRole(locale) : null;
   const list = series(locale);
   const tags = allTags(locale);
 
@@ -41,7 +43,7 @@ export function LogSidebar({
       <div>
         {intro ? (
           <>
-            <h1 className="text-[2.4rem] font-bold leading-[1.05] tracking-[-0.03em] text-balance">{profile.role[locale]}</h1>
+            <h1 className="text-[2.4rem] font-bold leading-[1.05] tracking-[-0.03em] text-balance">{role}</h1>
             <div className="mt-4 text-[0.95rem] leading-relaxed text-muted-foreground [&_p]:mt-0">
               <Intro />
             </div>

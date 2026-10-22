@@ -1,5 +1,5 @@
 import { monochromeIcons, socialIcons } from "@/config/icons";
-import { site } from "@/config/site";
+import { socials } from "@/lib/remote-profile";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 /**
@@ -8,22 +8,23 @@ import type { Dictionary } from "@/i18n/dictionaries";
  * repository other people clone. The list is data so an `icon` field can be
  * added without touching the markup.
  */
-export function SocialLinks({ dict }: { dict: Dictionary }) {
+export async function SocialLinks({ dict }: { dict: Dictionary }) {
+  const links = await socials();
   const items = [
     {
       key: "github" as const,
       label: dict.social.github,
-      href: site.socials.github,
+      href: links.github,
     },
     {
       key: "linkedin" as const,
       label: dict.social.linkedin,
-      href: site.socials.linkedin,
+      href: links.linkedin,
     },
     {
       key: "email" as const,
       label: dict.social.email,
-      href: `mailto:${site.socials.email}`,
+      href: `mailto:${links.email}`,
     },
   ];
 
