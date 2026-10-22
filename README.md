@@ -45,6 +45,7 @@ Three places, in the order you will need them:
 | What | Where |
 |---|---|
 | Repository, deployed URL, social links, locales | `src/config/site.ts` |
+| A public profile JSON to read the role and links from, optional | `profileUrl` in `src/config/site.ts` |
 | Your writing | `src/content/` — see [`docs/CONTENT.md`](docs/CONTENT.md) |
 | Interface strings | `src/i18n/dictionaries.ts` |
 | Colours and type | `src/app/globals.css` |
