@@ -1,6 +1,6 @@
 # how-i-build
 
-A template for an engineering notes site: short write-ups on what you build and the decisions behind them, in two languages, with the version and changelog read from your own GitHub releases.
+A template for an engineering notes site: short write-ups on what you build and the decisions behind them, in three languages, with the version and changelog read from your own GitHub releases.
 
 ## Stack
 
@@ -33,6 +33,7 @@ The default locale carries no prefix:
 ```
 /                 English
 /pt               Portuguese
+/es               Spanish
 /en               redirects to /
 ```
 

@@ -1,8 +1,24 @@
 "use client";
 
+import BR from "country-flag-icons/react/3x2/BR";
+import ES from "country-flag-icons/react/3x2/ES";
+import US from "country-flag-icons/react/3x2/US";
 import { usePathname } from "next/navigation";
+import type { ComponentType } from "react";
 import { localeHref, locales, stripLocale, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+
+/**
+ * A flag stands for a language here, not a country, so each one is a choice:
+ * the United States for English, Brazil for Portuguese, Spain for Spanish. A
+ * locale with no flag falls back to its code, so adding one never breaks the
+ * switch.
+ */
+const flags: Partial<Record<string, ComponentType<{ className?: string; title?: string }>>> = {
+  en: US,
+  pt: BR,
+  es: ES,
+};
 
 export function LocaleSwitch({
   locale,
@@ -23,7 +39,7 @@ export function LocaleSwitch({
     <div
       role="group"
       aria-label={labels.group}
-      className="flex items-center gap-1 border border-rule px-1 py-0.5"
+      className="flex items-center gap-1.5"
     >
       {locales.map((code) => {
         const active = code === locale;
@@ -45,13 +61,23 @@ export function LocaleSwitch({
               // moment a reader actually states a preference.
               document.cookie = `NEXT_LOCALE=${code};path=/;max-age=31536000;samesite=lax`;
             }}
-            className={
-              active
-                ? "bg-foreground px-2 py-0.5 data text-xs text-background"
-                : "px-2 py-0.5 data text-xs text-muted-foreground transition-colors hover:text-accent"
-            }
+            aria-label={labels[code]}
+            title={labels[code]}
+            className={`flex h-8 items-center px-1 transition-opacity ${
+              active ? "opacity-100" : "opacity-45 hover:opacity-100"
+            }`}
           >
-            {labels[code]}
+            {(() => {
+              const Flag = flags[code];
+              return Flag ? (
+                <Flag
+                  aria-hidden="true"
+                  className={`block h-4 w-6 ${active ? "outline-2 outline-offset-2 outline-foreground" : ""}`}
+                />
+              ) : (
+                <span className="data text-xs">{code.toUpperCase()}</span>
+              );
+            })()}
           </a>
         );
       })}

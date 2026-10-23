@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { Locale } from "@/i18n/config";
+import type { ByLocale } from "@/i18n/config";
 
 export type ProjectStatus = "in-dev" | "prod" | "archived";
 export type ProjectVisibility = "public" | "private";
@@ -40,7 +40,7 @@ export interface Project {
    * A record rather than a lookup: a missing locale is a type error, and the
    * static import behind each entry means a missing file is a build error.
    */
-  cases: Record<Locale, Case>;
+  cases: ByLocale<Case>;
 }
 
 export interface PostMeta {
@@ -62,12 +62,12 @@ export interface PostContent {
 
 export interface Post {
   slug: string;
-  locales: Record<Locale, PostContent>;
+  locales: ByLocale<PostContent>;
 }
 
 export interface Profile {
   name: string;
-  location: Record<Locale, string>;
-  role: Record<Locale, string>;
-  intro: Record<Locale, ComponentType>;
+  location: ByLocale<string>;
+  role: ByLocale<string>;
+  intro: ByLocale<ComponentType>;
 }

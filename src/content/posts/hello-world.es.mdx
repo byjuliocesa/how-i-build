@@ -1,0 +1,72 @@
+export const meta = {
+  title: "Por qué este sitio lleva un changelog",
+  summary:
+    "Una nota corta sobre escribir las decisiones mientras todavía están frescas, en lugar de reconstruirlas después.",
+  publishedAt: "2026-08-14",
+  tags: ["Escritura", "Proceso"],
+};
+
+## Por qué un post y no un caso
+
+Un caso se escribe después de los hechos. Para entonces las alternativas ya se
+desdibujaron, y lo que queda es la versión que funcionó, que es la parte menos
+interesante.
+
+Un post es más barato. Se puede escribir mientras una decisión todavía incomoda,
+antes de que nadie sepa si fue la correcta.
+
+<Hypothesis>
+Escribir el razonamiento después sería casi igual de preciso, porque las partes
+importantes se recuerdan.
+</Hypothesis>
+
+No se recuerdan. Lo que sobrevive una semana es la conclusión; lo que desaparece
+es la opción que descartaste y el motivo por el que la descartaste. La conclusión
+sola parece obvia, y las conclusiones obvias no le enseñan nada a nadie.
+
+<Observation>
+Las notas que vale la pena guardar son las que se escribieron antes de conocer el
+resultado.
+</Observation>
+
+## Para qué sirve esta sección
+
+Esa es toda la razón de esta sección: algunas ideas no merecen un caso y sí
+merecen quedar escritas.
+
+## Cómo se ve una sección técnica
+
+La medida del texto es de 68 caracteres, que es donde la lectura es cómoda. Un
+bloque de comandos o una tabla tienen más espacio, porque una cadena de pasos que
+se parte en dos líneas es una cadena que tienes que volver a armar en la cabeza:
+
+<Experiment>
+Quitar la toolchain activa y ver cuál de las dos herramientas se queja primero.
+</Experiment>
+
+```bash
+$ which rustc
+~/.cargo/bin/rustc
+$ rustup toolchain uninstall stable
+$ which rustc
+~/.cargo/bin/rustc      # sigue ahí: es un shim, no el compilador
+```
+
+| Pieza | Qué es | Dónde vive |
+|---|---|---|
+| `rustup` | gestor de versiones | `~/.cargo/bin` |
+| shim | un intermediario que reenvía la llamada | `~/.cargo/bin` |
+| `rustc` | el compilador de verdad | dentro de la toolchain |
+
+Y la cadena que forman los dos de verdad:
+
+<Chain>
+  <Step name="rustup">el gestor de versiones que instalas</Step>
+  <Step name="shim">un intermediario en el PATH que reenvía la llamada</Step>
+  <Step name="toolchain">la versión a la que el shim resuelve</Step>
+  <Step name="rustc">el compilador que por fin se ejecuta</Step>
+</Chain>
+
+
+> La interfaz desaparece mientras lees, y sabe aparecer cuando llega la parte
+> técnica.

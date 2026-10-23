@@ -88,7 +88,7 @@ export function postMeta(raw: unknown, source: string): PostMeta {
 export function tagAlignment(posts: Post[]): void {
   for (const post of posts) {
     const counted = Object.entries(post.locales).map(
-      ([locale, content]) => [locale, content.meta.tags?.length ?? 0] as const,
+      ([locale, content]) => [locale, content?.meta.tags?.length ?? 0] as const,
     );
 
     if (new Set(counted.map(([, length]) => length)).size > 1) {

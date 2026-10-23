@@ -1,4 +1,4 @@
-import type { Locale } from "./config";
+import type { ByLocale, Locale } from "./config";
 
 /**
  * English is the source of the key set: `Dictionary` is derived from it, so a
@@ -18,10 +18,12 @@ const en = {
     open: "Open menu",
     close: "Close menu",
   },
+  /** Each language named in itself, the way a reader looks for their own. */
   locale: {
     group: "Language",
-    en: "EN",
-    pt: "PT",
+    en: "English",
+    pt: "Português",
+    es: "Español",
   },
   theme: {
     group: "Theme",
@@ -146,8 +148,9 @@ const pt: Dictionary = {
   },
   locale: {
     group: "Idioma",
-    en: "EN",
-    pt: "PT",
+    en: "English",
+    pt: "Português",
+    es: "Español",
   },
   theme: {
     group: "Tema",
@@ -254,7 +257,129 @@ const pt: Dictionary = {
   },
 };
 
-const dictionaries: Record<Locale, Dictionary> = { en, pt };
+const es: Dictionary = {
+  nav: {
+    home: "Diario",
+    changelog: "Changelog",
+    blog: "Blog",
+    about: "Acerca",
+    privacy: "Privacidad",
+    menu: "Sitio",
+    open: "Abrir menú",
+    close: "Cerrar menú",
+  },
+  locale: {
+    group: "Idioma",
+    en: "English",
+    pt: "Português",
+    es: "Español",
+  },
+  theme: {
+    group: "Tema",
+    light: "Claro",
+    dark: "Oscuro",
+    system: "Sistema",
+  },
+  social: {
+    github: "GitHub",
+    linkedin: "LinkedIn",
+    email: "Correo",
+  },
+  home: {
+    profile: "Perfil",
+    projects: "Proyectos",
+  },
+  footer: {
+    template: "Plantilla",
+    updated: "Actualizado",
+  },
+  about: {
+    title: "Acerca",
+    heading: "Por qué existe esto",
+  },
+  privacy: {
+    title: "Privacidad",
+  },
+  notFound: {
+    title: "Esta página no existe",
+    body: "La dirección está mal, o lo que había aquí se movió. El índice lista todo lo que está publicado.",
+    home: "Volver al índice",
+  },
+  search: {
+    open: "Buscar",
+    placeholder: "Buscar posts y proyectos",
+    empty: "No hay resultados.",
+    posts: "Posts",
+    projects: "Proyectos",
+    close: "Cerrar búsqueda",
+  },
+  blog: {
+    title: "Escritos",
+    latest: "Blog",
+    previous: "Post anterior",
+    next: "Post siguiente",
+    empty: "Nada publicado todavía.",
+    recent: "Posts recientes",
+    tag: "Etiqueta",
+    tags: "Etiquetas",
+    all: "Todos los posts",
+    minutes: "min de lectura",
+    readNext: "Sigue leyendo",
+  },
+  changelog: {
+    title: "Changelog",
+    note: "Las notas de versión se generan a partir de los mensajes de commit, por eso están en inglés.",
+    empty: "Todavía no hay versiones. La primera aparece aquí cuando una funcionalidad o una corrección llega a la rama principal.",
+    release: "Notas de versión",
+    latest: "Última versión",
+  },
+  log: {
+    title: "Diario",
+    filter: "Mostrar",
+    more: "Cargando más entradas",
+    all: "Todo",
+    post: "Posts",
+    decision: "Decisiones",
+    release: "Versiones",
+    kind: { post: "Post", decision: "Decisión", release: "Versión" },
+    series: "Series",
+    entries: "entradas",
+    empty: "Todavía no hay nada de este tipo.",
+    emptyReleases: "No hay versiones para mostrar. Se leen de GitHub cuando se genera el sitio, y todavía no hay ninguna publicada o accesible.",
+    back: "Volver al diario",
+  },
+  status: {
+    "in-dev": "En desarrollo",
+    prod: "En línea",
+    archived: "Archivado",
+  },
+  visibility: {
+    public: "Público",
+    private: "Privado",
+  },
+  project: {
+    pending: "Texto pendiente",
+  },
+  case: {
+    toc: "En esta página",
+    problem: "Problema",
+    decisions: "Decisiones",
+    challenges: "Desafíos",
+    outcome: "Resultado",
+    references: "Referencias",
+    updated: "Actualizado",
+    context: "Contexto",
+    decision: "Decisión",
+    tradeoffs: "Compromisos",
+    observation: "Observación",
+    hypothesis: "Hipótesis",
+    experiment: "Experimento",
+    live: "Ver sitio",
+    repository: "Repositorio",
+  },
+};
+
+const dictionaries: ByLocale<Dictionary> = { en, pt, es };
 
 export function getDictionary(locale: Locale): Dictionary {
   return dictionaries[locale];

@@ -1,5 +1,6 @@
 import IntroEn from "./profile.en.mdx";
 import IntroPt from "./profile.pt.mdx";
+import IntroEs from "./profile.es.mdx";
 import type { Profile } from "./types";
 
 /**
@@ -8,10 +9,11 @@ import type { Profile } from "./types";
  */
 export const profile: Profile = {
   name: "Your name",
-  location: { en: "Your city", pt: "Sua cidade" },
+  location: { en: "Your city", pt: "Sua cidade", es: "Tu ciudad" },
   role: {
     en: "What you do, in one line",
     pt: "O que você faz, em uma linha",
+    es: "Lo que haces, en una línea",
   },
-  intro: { en: IntroEn, pt: IntroPt },
+  intro: { en: IntroEn, pt: IntroPt, es: IntroEs },
 };

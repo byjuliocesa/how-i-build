@@ -10,6 +10,13 @@ export type Locale = (typeof locales)[number];
  */
 export const defaultLocale: Locale = site.defaultLocale;
 
+/**
+ * One value per configured locale, and any others besides. A fork that drops a
+ * language keeps compiling against template files that still carry it, while
+ * a configured locale with no value is still a type error.
+ */
+export type ByLocale<T> = { [K in Locale]: T } & Partial<Record<string, T>>;
+
 export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);
 }

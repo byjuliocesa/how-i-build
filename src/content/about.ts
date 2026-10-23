@@ -1,9 +1,11 @@
 import type { ComponentType } from "react";
-import type { Locale } from "@/i18n/config";
+import type { ByLocale } from "@/i18n/config";
 import AboutEn from "./about.en.mdx";
 import AboutPt from "./about.pt.mdx";
+import AboutEs from "./about.es.mdx";
 
-export const about: Record<Locale, ComponentType> = {
+export const about: ByLocale<ComponentType> = {
   en: AboutEn,
   pt: AboutPt,
+  es: AboutEs,
 };

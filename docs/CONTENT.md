@@ -132,7 +132,7 @@ Add it to `locales` in `src/config/site.ts`. **Every existing case will stop
 compiling until it has a file in the new language.**
 
 That is the intended behaviour, not a bug to work around: `cases` is a
-`Record<Locale, Case>`, so a half-translated site cannot be published by
+`ByLocale<Case>`, so a half-translated site cannot be published by
 accident. `bun run typecheck` also runs `scripts/check-content.ts`, which lists
 every missing file at once:
 
@@ -140,6 +140,14 @@ every missing file at once:
 Missing translations:
   src/content/projects/ledger.es.mdx
 ```
+
+Removing a locale works the other way: take it out of `locales` and the site
+stops serving it, while the files that still carry it keep compiling.
+`ByLocale` requires every configured locale and tolerates any other, so a fork
+with fewer languages can keep taking template updates without deleting them.
+
+The language switch shows a flag per locale. The map from locale to flag is in
+`src/components/locale-switch.tsx`; a locale with no entry shows its code.
 
 ## Icons
 

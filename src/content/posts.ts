@@ -1,5 +1,6 @@
 import HelloEn, { meta as helloEn } from "./posts/hello-world.en.mdx";
 import HelloPt, { meta as helloPt } from "./posts/hello-world.pt.mdx";
+import HelloEs, { meta as helloEs } from "./posts/hello-world.es.mdx";
 import type { Post } from "./types";
 import { postMeta, tagAlignment } from "./validate";
 
@@ -20,6 +21,10 @@ export const posts: Post[] = [
       pt: {
         meta: postMeta(helloPt, "posts/hello-world.pt.mdx"),
         Body: HelloPt,
+      },
+      es: {
+        meta: postMeta(helloEs, "posts/hello-world.es.mdx"),
+        Body: HelloEs,
       },
     },
   },

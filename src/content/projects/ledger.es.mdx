@@ -1,0 +1,64 @@
+export const meta = {
+  name: "Ledger",
+  summary:
+    "Un registro de gastos para la línea de comandos que guarda sus datos en un único archivo que se puede leer.",
+  role: "Autor único",
+  period: "2026",
+  updatedAt: "2026-07-19",
+  references: [
+    {
+      label: "SQLite como formato de archivo de aplicación",
+      url: "https://www.sqlite.org/appfileformat.html",
+    },
+  ],
+};
+
+Todos los registros de gastos que probé se quedaban con mis datos. Las
+exportaciones perdían información, el esquema no estaba documentado y cambiar de
+herramienta significaba volver a escribir meses de historial.
+
+La restricción era estrecha: el archivo que escribe la herramienta tiene que ser
+`legible sin la herramienta`. Todo lo que sigue sale de ahí.
+
+<Entry title="Formato de almacenamiento" date="2026-06-21" />
+
+La primera versión escribía JSON. Seguía siendo legible, que era la idea, pero
+convertía cada consulta en un recorrido completo y cada escritura en reescribir
+todo el archivo. Con tres años de entradas, eso dejó de ser un problema teórico.
+
+<Decision>
+Un único archivo `ledger.db`, consultado dentro del proceso. Sigue siendo un solo
+archivo para respaldar o copiar, y cualquier cliente de
+[SQLite](https://www.sqlite.org/appfileformat.html) puede abrirlo.
+</Decision>
+
+<Tradeoffs>
+- Un archivo binario no se puede comparar en un pull request
+- Las escrituras simultáneas desde dos terminales se rechazan en lugar de combinarse
+- Recuperarse de una corrupción necesita `sqlite3`, no un editor de texto
+</Tradeoffs>
+
+Tres años después, las consultas responden en milisegundos y un respaldo sigue
+siendo copiar un archivo. La pérdida del diff no se echó de menos ni una vez.
+
+<Entry title="Importar extractos" date="2026-07-02" />
+
+Las exportaciones de los bancos cambian el orden de las columnas, el formato de
+fecha y el separador decimal. Resolver eso con un script suelto significaba
+reescribirlo cada trimestre, casi siempre en el peor momento.
+
+<Decision>
+La importación recibe un archivo de mapeo, así que un banco nuevo es un cambio de
+configuración y no de código. El mapeo vive junto a los datos, y
+`ledger import --dry-run` muestra qué cambiaría antes de escribir nada.
+</Decision>
+
+<Tradeoffs>
+- Un archivo de mapeo es una cosa más que escribir antes de la primera importación
+- Los formatos que necesitan lógica de parseo de verdad todavía requieren un script
+</Tradeoffs>
+
+Dos bancos emitían el mismo formato de fecha ambiguo con significados opuestos, y
+ninguno decía cuál. El importador ahora rechaza las columnas ambiguas en lugar de
+adivinar, y pregunta una vez por mapeo. `--dry-run` atrapó todos los mapeos malos
+desde entonces.

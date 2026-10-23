@@ -18,6 +18,6 @@ export const site = {
     github: "https://github.com/your-username",
     linkedin: "https://www.linkedin.com/in/your-handle/",
   },
-  locales: ["en", "pt"],
+  locales: ["en", "pt", "es"],
   defaultLocale: "en",
 } as const satisfies SiteConfig;
